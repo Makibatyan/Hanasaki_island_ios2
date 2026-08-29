@@ -13,31 +13,31 @@ class CandidateAdapter(
 
     private val candidates = mutableListOf<DialectEntry>()
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textCandidate: TextView = view.findViewById(android.R.id.text1)
-        val textRegion: TextView? = view.findViewById(android.R.id.text2)
+    fun updateCandidates(newCandidates: List<DialectEntry>) {
+        candidates.clear()
+        candidates.addAll(newCandidates)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(android.R.layout.simple_list_item_2, parent, false)
+            .inflate(R.layout.item_candidate, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val entry = candidates[position]
-        holder.textCandidate.text = entry.word
-        holder.textRegion?.text = if (entry.region.isNotEmpty()) entry.region else ""
+        val item = candidates[position]
+        holder.tvWord.text = item.word
+        holder.tvDescription.text = item.description
         holder.itemView.setOnClickListener {
-            onCandidateClick(entry)
+            onCandidateClick(item)
         }
     }
 
     override fun getItemCount(): Int = candidates.size
 
-    fun updateCandidates(newCandidates: List<DialectEntry>) {
-        candidates.clear()
-        candidates.addAll(newCandidates)
-        notifyDataSetChanged()
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvWord: TextView = view.findViewById(R.id.tv_candidate_word)
+        val tvDescription: TextView = view.findViewById(R.id.tv_candidate_desc)
     }
 }

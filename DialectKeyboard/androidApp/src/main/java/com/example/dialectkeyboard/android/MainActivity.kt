@@ -1,6 +1,5 @@
 package com.example.dialectkeyboard.android
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -12,31 +11,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        val context: Context = this
-        val layout = android.widget.LinearLayout(context).apply {
-            orientation = android.widget.LinearLayout.VERTICAL
-            setPadding(32, 32, 32, 32)
+        findViewById<Button>(R.id.btn_enable_keyboard)?.setOnClickListener {
+            val intent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
+            startActivity(intent)
         }
 
-        val btnEnable = Button(context).apply {
-            text = "キーボードを有効化する"
-            setOnClickListener {
-                val intent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
-                startActivity(intent)
-            }
+        findViewById<Button>(R.id.btn_switch_keyboard)?.setOnClickListener {
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showInputMethodPicker()
         }
-
-        val btnSwitch = Button(context).apply {
-            text = "キーボードを切り替える"
-            setOnClickListener {
-                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showInputMethodPicker()
-            }
-        }
-
-        layout.addView(btnEnable)
-        layout.addView(btnSwitch)
-        setContentView(layout)
     }
 }
