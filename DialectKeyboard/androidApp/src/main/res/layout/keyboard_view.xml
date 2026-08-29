@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#DDE2E5">
+
+    <!-- メインキーボード表示部 -->
+    <LinearLayout
+        android:id="@+id/layout_keyboard_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 上部ヘッダー（変換候補バー ＋ 地域選択ボタン） -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#CFD8DC">
+
+            <!-- 変換候補の横スクロールリスト -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_candidates"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingHorizontal="4dp" />
+
+            <!-- 地域選択ボタン -->
+            <Button
+                android:id="@+id/btn_select_region"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="#1976D2"
+                android:text="地域選択"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:paddingHorizontal="12dp" />
+        </LinearLayout>
+
+        <!-- フリックキーボード本体 -->
+        <com.example.dialectkeyboard.android.FlickKeyboardView
+            android:id="@+id/flick_keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- 地域選択パネル（地域選択ボタンを押した時に切り替え表示） -->
+    <LinearLayout
+        android:id="@+id/layout_region_panel"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical|end"
+            android:paddingHorizontal="12dp"
+            android:background="#F5F5F5">
+
+            <Button
+                android:id="@+id/btn_panel_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:backgroundTint="#1976D2"
+                android:text="完了"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/container_region_checks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp" />
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>
